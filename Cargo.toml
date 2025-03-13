@@ -1,0 +1,11 @@
+[package]
+name = "mellanox"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+const-hex = "1.14.0"
+hex-literal = "0.4.1"
+libflate = "2.1.0"
+num_enum = "0.7.3"
+regex = "1.11.1"
