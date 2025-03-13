@@ -38,7 +38,7 @@ jobs:
             runs-on: macOS-latest
             target: aarch64-apple-darwin
 
-    runs-on: ${{ matrix.runs-on }}
+    runs-on: ${{ matrix.platform.runs-on }}
     steps:
       - uses: actions/checkout@v4
       - run: rustup update
