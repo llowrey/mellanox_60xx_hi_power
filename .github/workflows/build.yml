@@ -14,16 +14,33 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform:
+          - os-name: Linux-x86_64
+            runs-on: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+
+          - os-name: Linux-aarch64
+            runs-on: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+
+          - os-name: Windows-x86_64
+            runs-on: windows-latest
+            target: x86_64-pc-windows-msvc
+
+          - os-name: macOS-x86_64
+            runs-on: macOS-latest
+            target: x86_64-apple-darwin
+
+          - os-name: macOS-aarch64
+            runs-on: macOS-latest
+            target: aarch64-apple-darwin
+    runs-on: ${{ matrix.runs-on }}
     steps:
     - uses: actions/checkout@v4
-    - run: |
-        rustup update
-        rustup target add x86_64-pc-windows-gnu x86_64-unknown-linux-gnu aarch64-apple-darwin
-    - run: |
-        cargo build --release --target x86_64-pc-windows-gnu
-        cargo build --release --target x86_64-unknown-linux-gnu
-        cargo build --release --target aarch64-apple-darwin
+    - run: rustup update
+    - run: cargo build --release
     - run: ls -lR
     # - uses: actions/upload-artifact@v4
     #   with:
