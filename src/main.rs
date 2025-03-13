@@ -210,7 +210,6 @@ fn patch_ini(ini: &mut Section) -> (Vec<u32>, bool) {
 
         if line.starts_with("[") {
             if in_module && !has_power_level {
-                println!("module[{}] add power level: 5", module.unwrap());
                 let mut j = i - 1;
                 while j > 0 && lines[j].is_empty() {
                     j -= 1;
@@ -249,7 +248,6 @@ fn patch_ini(ini: &mut Section) -> (Vec<u32>, bool) {
         let patched = lines.join("\n").as_bytes().to_vec();
         encoder.write_all(&patched).unwrap();
         encoder.finish().into_result().unwrap();
-        println!("-> {}", bytes.len());
         if bytes.len() % 4 != 0 {
             bytes.resize(bytes.len() + 4 - (bytes.len() % 4), 0);
         }
