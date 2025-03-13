@@ -1,0 +1,27 @@
+name: Build
+
+permissions: {}
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+env:
+  # Disable incremental compilation for faster from-scratch builds
+  CARGO_INCREMENTAL: 0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - run: |
+        rustup update
+        rustup target add x86_64-pc-windows-msvc x86_64-unknown-linux-gnu aarch64-apple-darwin
+    - run: cargo build --release
+    - run: ls -lR
+    # - uses: actions/upload-artifact@v4
+    #   with:
+    #     path: target/release/mylibrary.dll
