@@ -43,7 +43,6 @@ jobs:
       - uses: actions/checkout@v4
       - run: rustup update
       - run: cargo build --release
-      - run: ls -lR
     # - uses: actions/upload-artifact@v4
     #   with:
     #     path: target/release/mylibrary.dll
